@@ -1,36 +1,12 @@
 import 'package:http/http.dart' as http;
+import 'package:old/constants/constant.dart';
 import 'dart:convert';
 import 'dart:async';
 
-class ImageModel {
-  final String thumb;
-  final String image;
-  final String author;
-  final String title;
-  final String id;
-  ImageModel(this.id, this.thumb, this.image, this.title, this.author);
-  factory ImageModel.fromJson(dynamic json) {
-    String forTitle = '';
-    if (json.containsKey('sponsorship') &&
-        json['sponsorship'] != null &&
-        json['sponsorship'].containsKey('tagline') &&
-        json['sponsorship']['tagline'] != null &&
-        json['sponsorship']['tagline'] != '') {
-      forTitle = json['sponsorship']['tagline'];
-    } else if (json.containsKey('description') && json['description'] != null) {
-      forTitle = json['description'];
-    } else if (json.containsKey('alt_description') &&
-        json['alt_description'] != null &&
-        json['alt_description'] != '') {
-      forTitle = json['alt_description'];
-    } else {
-      forTitle = 'No title';
-    }
-    return ImageModel(json['id'], json['urls']['thumb'], json['urls']['small'],
-        forTitle, json['user']['username']);
-  }
-}
+import 'ImageModel.dart';
 
+//class with collection of imageModels
+//do the business logic for models
 class GalleryModel {
   Stream<List<ImageModel>> stream;
   bool fetching;
@@ -47,18 +23,21 @@ class GalleryModel {
     });
   }
 
-  Future<void> fetchPage(int urlPage) {
-    // String url, Function callback) async {
-    final url =
-        'https://api.unsplash.com/photos/?client_id=cf49c08b444ff4cb9e4d126b7e9f7513ba1ee58de7906e4360afc1a33d1bf4c0&orientation=portrait&per_page=10&page=';
+  //used on refresh
+  void refreshData() {
+    _data = [];
+  }
 
+  //fetching batch of data
+  Future<void> fetchPage(int urlPage) {
+    //requested orientation has no effect
     if (fetching) {
       return Future.value();
     }
 
     fetching = true;
 
-    return http.get(url + urlPage.toString()).then((response) {
+    return http.get(urlHalf + urlPage.toString()).then((response) {
       fetching = false;
       if (response.statusCode == 200) {
         final dynamic json = jsonDecode(response.body);

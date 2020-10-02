@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:old/components/imageLoader.dart';
-import 'package:old/model/GalleryModel.dart';
+import 'package:old/model/ImageModel.dart';
 
 class ImageWidget extends StatelessWidget {
   final ImageModel image;
@@ -20,15 +20,6 @@ class ImageWidget extends StatelessWidget {
         child: Hero(
           tag: image.id,
           child: LoadImage(image.image),
-          // child: Image.network(
-          //   image.image,
-          //   fit: BoxFit.cover,
-          //   loadingBuilder: (context, child, loadingProgress) {
-          //     return loadingProgress == null
-          //         ? child
-          //         : Center(child: CircularProgressIndicator());
-          //   },
-          // ),
         ),
       ),
     );

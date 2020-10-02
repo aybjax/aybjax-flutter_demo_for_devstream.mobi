@@ -1,19 +1,28 @@
 import 'dart:async';
 
 import "package:flutter/material.dart";
-import 'package:flutter/services.dart';
+import 'package:old/constants/constant.dart';
+
+import 'Error.dart';
 
 class LoadingOrMsg extends StatefulWidget {
-  final String msg;
+  static const wait = 0;
+  static const image = 1;
+  static const exit = 2;
+  static const listtile = 3;
+  static const error = 4;
+
+  final int msg;
   LoadingOrMsg(this.msg);
   @override
   _LoadingOrMsgState createState() => _LoadingOrMsgState();
 }
 
+//show progress widget or error info widget
 class _LoadingOrMsgState extends State<LoadingOrMsg> {
   int _time = 1;
 
-  String ret = 'wait';
+  int ret = LoadingOrMsg.wait;
 
   Timer _timer;
   Widget childWidget;
@@ -29,65 +38,29 @@ class _LoadingOrMsgState extends State<LoadingOrMsg> {
   void initState() {
     super.initState();
     runTimer();
-    progress = widget.msg == 'image'
+    progress = widget.msg == LoadingOrMsg.image
         ? Image.asset('assets/images/loading.gif')
         : CircularProgressIndicator();
-    childWidget = widget.msg == 'exit'
-        ? AlertDialog(
-            title: Text(
-              "Loading timeout",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            content: Text(
-              "Loading is taking too much time.\nCheck internet connection",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            actions: [
-              FlatButton(
-                onPressed: () {
-                  SystemNavigator.pop();
-                },
-                child: Text(
-                  "Exit app",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              // FlatButton(
-              //   onPressed: () {
-              //     RestartWidget.restartApp(context);
-              //   },
-              //   child: Text(
-              //     "Give another try",
-              //     style: TextStyle(
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // ),
-            ],
-            backgroundColor: Colors.cyan,
+    childWidget = widget.msg == LoadingOrMsg.exit
+        ? Center(
+            child: NoInternet(),
           )
-        : widget.msg == 'listtile'
+        : widget.msg == LoadingOrMsg.listtile
             ? Card(
                 color: Colors.redAccent,
                 elevation: 24.0,
                 child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      "Loading error...\nCheck internet Connection",
+                      listTitleError,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
                       ),
                     )),
               )
-            : widget.msg == 'image'
-                ? Text('Image has not been Dowloaded')
+            : widget.msg == LoadingOrMsg.image
+                ? Text(imageNotFoundError)
                 : Text('Unknown Error');
   }
 
@@ -96,15 +69,17 @@ class _LoadingOrMsgState extends State<LoadingOrMsg> {
       setState(() {
         if (_time > 0)
           _time--;
-        else
-          ret = 'error';
+        else {
+          ret = LoadingOrMsg.error;
+          _timer.cancel();
+        }
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return ret == 'wait'
+    return ret == LoadingOrMsg.wait
         ? Center(child: progress)
         : Center(
             child: childWidget,

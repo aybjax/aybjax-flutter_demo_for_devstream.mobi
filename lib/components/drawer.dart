@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+//about info
 class SideDrawer extends StatefulWidget {
   SideDrawer({Key key}) : super(key: key);
 
@@ -8,6 +10,14 @@ class SideDrawer extends StatefulWidget {
 }
 
 class _SideDrawerState extends State<SideDrawer> {
+  launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,7 +36,7 @@ class _SideDrawerState extends State<SideDrawer> {
               child: Column(
                 children: [
                   CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/1.jpeg'),
+                    backgroundImage: AssetImage('assets/images/me.jpg'),
                     radius: 50,
                   ),
                   Padding(
@@ -55,6 +65,26 @@ class _SideDrawerState extends State<SideDrawer> {
               ),
               onTap: () {
                 Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text(
+                'github.com/aybjax',
+                textAlign: TextAlign.end,
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                launchURL('https://github.com/aybjax');
+              },
+            ),
+            ListTile(
+              title: Text(
+                'aybat.host20.uk/resume',
+                textAlign: TextAlign.end,
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                launchURL('http://aybat.host20.uk/resume');
               },
             ),
           ],
