@@ -87,6 +87,17 @@ class _SideDrawerState extends State<SideDrawer> {
                 launchURL('http://aybat.host20.uk/resume');
               },
             ),
+            ListTile(
+              title: Text(
+                'LINK TO THIS APP IN GITHUB',
+                textAlign: TextAlign.end,
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                launchURL(
+                    'https://github.com/aybjax/aybjax-flutter_demo_for_devstream.mobi');
+              },
+            ),
           ],
         ),
       ),

@@ -5,11 +5,8 @@ import 'package:old/constants/constant.dart';
 class NoInternet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(appName),
-      ),
-      body: AlertDialog(
+    return Container(
+      child: AlertDialog(
         title: Text(
           alertTile,
           style: TextStyle(
