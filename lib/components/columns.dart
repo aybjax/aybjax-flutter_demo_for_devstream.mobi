@@ -14,6 +14,7 @@ class CardColumn extends StatelessWidget {
     return Column(
       children: [
         Container(
+          key: Key(image.id),
           constraints: BoxConstraints.expand(height: 200.0),
           child: Hero(
             child: LoadImage(image.thumb),
@@ -22,6 +23,7 @@ class CardColumn extends StatelessWidget {
           // width: ,
         ),
         Card(
+          key: Key(image.id + "card"),
           elevation: 24.0,
           color: Colors.greenAccent,
           margin: const EdgeInsets.all(12.0),
