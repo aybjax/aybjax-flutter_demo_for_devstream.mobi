@@ -1,29 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:old/components/imageLoader.dart';
 import 'package:old/model/GalleryModel.dart';
 
 class ImageWidget extends StatelessWidget {
-  final GalleryModel model;
-  const ImageWidget(this.model);
+  final ImageModel image;
+  ImageWidget(this.image);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(model.title),
+        title: Text(image.title),
       ),
       body: Container(
         constraints: BoxConstraints(
           minWidth: double.infinity,
           minHeight: double.infinity,
         ),
-        child: Image.network(
-          model.image,
-          fit: BoxFit.cover,
-          loadingBuilder: (context, child, loadingProgress) {
-            return loadingProgress == null
-                ? child
-                : Center(child: CircularProgressIndicator());
-          },
+        child: Hero(
+          tag: image.id,
+          child: LoadImage(image.image),
+          // child: Image.network(
+          //   image.image,
+          //   fit: BoxFit.cover,
+          //   loadingBuilder: (context, child, loadingProgress) {
+          //     return loadingProgress == null
+          //         ? child
+          //         : Center(child: CircularProgressIndicator());
+          //   },
+          // ),
         ),
       ),
     );
