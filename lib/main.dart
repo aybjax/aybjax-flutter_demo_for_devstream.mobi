@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'screens/GalleryWidget.dart';
 import 'screens/ImageWidget.dart';
 
-const GalleryRoute = '/';
-const ImageRoute = '/image';
-
 void main() {
   runApp(Demo());
 }
@@ -23,10 +20,10 @@ RouteFactory _routes() {
     final Map<String, dynamic> arguments = settings.arguments;
     Widget screen;
     switch (settings.name) {
-      case GalleryRoute:
+      case GalleryWidget.GalleryRoute:
         screen = GalleryWidget();
         break;
-      case ImageRoute:
+      case ImageWidget.ImageRoute:
         screen = ImageWidget(arguments['item']);
         break;
       default:

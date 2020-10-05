@@ -3,6 +3,8 @@ import 'package:old/components/imageLoader.dart';
 import 'package:old/model/ImageModel.dart';
 
 class ImageWidget extends StatelessWidget {
+  static const ImageRoute = '/image';
+
   final ImageModel image;
   ImageWidget(this.image);
 

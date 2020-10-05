@@ -21,7 +21,7 @@ class _LoadImageState extends State<LoadImage> {
     url = widget.url;
     child = CachedNetworkImage(
       imageUrl: url,
-      placeholder: (context, url) => LoadingOrMsg(LoadingOrMsg.image),
+      placeholder: (context, url) => LoadingOrMsg(Msg.IMAGE),
       errorWidget: (context, url, error) => Icon(Icons.error),
     );
   }

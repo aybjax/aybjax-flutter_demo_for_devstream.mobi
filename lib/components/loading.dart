@@ -5,14 +5,16 @@ import 'package:old/constants/constant.dart';
 
 import 'Error.dart';
 
-class LoadingOrMsg extends StatefulWidget {
-  static const wait = 0;
-  static const image = 1;
-  static const exit = 2;
-  static const listtile = 3;
-  static const error = 4;
+enum Msg {
+  WAIT,
+  IMAGE,
+  EXIT,
+  LISTTILE,
+  ERROR,
+}
 
-  final int msg;
+class LoadingOrMsg extends StatefulWidget {
+  final Msg msg;
   LoadingOrMsg(this.msg);
   @override
   _LoadingOrMsgState createState() => _LoadingOrMsgState();
@@ -22,7 +24,7 @@ class LoadingOrMsg extends StatefulWidget {
 class _LoadingOrMsgState extends State<LoadingOrMsg> {
   int _time = 1;
 
-  int ret = LoadingOrMsg.wait;
+  Msg ret = Msg.WAIT;
 
   Timer _timer;
   Widget childWidget;
@@ -38,14 +40,14 @@ class _LoadingOrMsgState extends State<LoadingOrMsg> {
   void initState() {
     super.initState();
     runTimer();
-    progress = widget.msg == LoadingOrMsg.image
+    progress = widget.msg == Msg.IMAGE
         ? Image.asset('assets/images/loading.gif')
         : CircularProgressIndicator();
-    childWidget = widget.msg == LoadingOrMsg.exit
+    childWidget = widget.msg == Msg.EXIT
         ? Center(
             child: NoInternet(),
           )
-        : widget.msg == LoadingOrMsg.listtile
+        : widget.msg == Msg.LISTTILE
             ? Card(
                 color: Colors.redAccent,
                 elevation: 24.0,
@@ -59,7 +61,7 @@ class _LoadingOrMsgState extends State<LoadingOrMsg> {
                       ),
                     )),
               )
-            : widget.msg == LoadingOrMsg.image
+            : widget.msg == Msg.IMAGE
                 ? Text(imageNotFoundError)
                 : Text('Unknown Error');
   }
@@ -70,7 +72,7 @@ class _LoadingOrMsgState extends State<LoadingOrMsg> {
         if (_time > 0)
           _time--;
         else {
-          ret = LoadingOrMsg.error;
+          ret = Msg.ERROR;
           _timer.cancel();
         }
       });
@@ -79,7 +81,7 @@ class _LoadingOrMsgState extends State<LoadingOrMsg> {
 
   @override
   Widget build(BuildContext context) {
-    return ret == LoadingOrMsg.wait
+    return ret == Msg.WAIT
         ? Center(child: progress)
         : Center(
             child: childWidget,

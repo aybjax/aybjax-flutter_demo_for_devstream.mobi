@@ -3,10 +3,13 @@ import 'package:old/components/loading.dart';
 import 'package:old/components/tiles.dart';
 import 'package:old/constants/constant.dart';
 import 'package:old/model/ImageModel.dart';
+import 'package:old/screens/ImageWidget.dart';
 import '../model/GalleryModel.dart';
 import '../components/drawer.dart';
 
 class GalleryWidget extends StatefulWidget {
+  static const GalleryRoute = '/';
+
   @override
   _GalleryWidgetState createState() => _GalleryWidgetState();
 }
@@ -46,7 +49,8 @@ class _GalleryWidgetState extends State<GalleryWidget> {
     BuildContext context,
   ) {
     return (ImageModel image) {
-      Navigator.pushNamed(context, '/image', arguments: {'item': image});
+      Navigator.pushNamed(context, ImageWidget.ImageRoute,
+          arguments: {'item': image});
     };
   };
 
@@ -61,7 +65,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
         stream: model.stream,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (!snapshot.hasData)
-            return Center(child: LoadingOrMsg(LoadingOrMsg.exit));
+            return Center(child: LoadingOrMsg(Msg.EXIT));
           else {
             return RefreshIndicator(
               onRefresh: () {
@@ -89,7 +93,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                     else {
                       return ListTile(
                         title: Center(
-                          child: LoadingOrMsg(LoadingOrMsg.listtile),
+                          child: LoadingOrMsg(Msg.LISTTILE),
                         ),
                       );
                     }
