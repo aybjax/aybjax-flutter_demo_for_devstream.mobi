@@ -44,7 +44,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 ],
               ),
               decoration: BoxDecoration(
-                color: Colors.blue[400],
+                color: Theme.of(context).primaryColor,
               ),
             ),
             ListTile(
