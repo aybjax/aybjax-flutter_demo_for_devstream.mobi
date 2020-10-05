@@ -3,8 +3,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 //about info
 class SideDrawer extends StatefulWidget {
-  SideDrawer({Key key}) : super(key: key);
-
   @override
   _SideDrawerState createState() => _SideDrawerState();
 }
