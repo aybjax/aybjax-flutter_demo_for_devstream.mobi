@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:old/model/ImageModel.dart';
 
-import 'imageLoader.dart';
+import 'loadImage.dart';
 
 //component for displaying 1 imagemodel in listview
 class CardColumn extends StatelessWidget {

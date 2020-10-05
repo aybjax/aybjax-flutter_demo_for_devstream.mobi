@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:old/components/imageLoader.dart';
+import 'package:old/components/loadImage.dart';
 import 'package:old/model/ImageModel.dart';
 
 class ImageWidget extends StatelessWidget {

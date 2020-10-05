@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:old/model/ImageModel.dart';
 
-import 'columns.dart';
+import 'cardColumn.dart';
 
 class ReturnTile extends StatefulWidget {
   final ImageModel image;

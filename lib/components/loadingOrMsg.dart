@@ -3,7 +3,7 @@ import 'dart:async';
 import "package:flutter/material.dart";
 import 'package:old/constants/constant.dart';
 
-import 'Error.dart';
+import 'noInternet.dart';
 
 enum Msg {
   WAIT,

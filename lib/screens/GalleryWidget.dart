@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:old/components/loading.dart';
-import 'package:old/components/tiles.dart';
+import 'package:old/components/loadingOrMsg.dart';
+import 'package:old/components/returnTile.dart';
 import 'package:old/constants/constant.dart';
 import 'package:old/model/ImageModel.dart';
 import 'package:old/screens/ImageWidget.dart';
 import '../model/GalleryModel.dart';
-import '../components/drawer.dart';
+import '../components/sideDrawer.dart';
 
 class GalleryWidget extends StatefulWidget {
   static const GalleryRoute = '/';
