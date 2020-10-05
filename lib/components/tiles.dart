@@ -35,6 +35,7 @@ class _ReturnTileState extends State<ReturnTile> {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
+        key: ValueKey(widget.image.id),
         tween: Tween<double>(begin: 0, end: 1),
         duration: Duration(milliseconds: 1000),
         child: child,
